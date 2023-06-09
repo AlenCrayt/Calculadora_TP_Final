@@ -1,4 +1,3 @@
-NumAConvertir = 0
 MyLista = []
 Numeradores = []
 Denominadores = []
@@ -10,10 +9,9 @@ def Suma():
     while Iterador + 1 < len(MyLista):
         Iterador += 1
         Res += MyLista[Iterador]
-    else:
-        print(Res)
-        MyLista.clear()
-        Menu()
+    print(Res)
+    MyLista.clear()
+    Menu()
 
 def Resta():
     Iterador = 1
@@ -21,10 +19,9 @@ def Resta():
     while Iterador + 1 < len(MyLista):
         Iterador += 1
         Res -= MyLista[Iterador]
-    else:
-        print(Res)
-        MyLista.clear()
-        Menu()
+    print(Res)
+    MyLista.clear()
+    Menu()
 
 def Multiplicacion():
     Iterador = 1
@@ -32,10 +29,9 @@ def Multiplicacion():
     while Iterador + 1 < len(MyLista):
         Iterador += 1
         Res *= MyLista[Iterador]
-    else:
-        print(Res)
-        MyLista.clear()
-        Menu()
+    print(Res)
+    MyLista.clear()
+    Menu()
 
 def Division():
     Iterador = 1
@@ -43,10 +39,9 @@ def Division():
     while Iterador + 1 < len(MyLista):
         Iterador += 1
         Res /= MyLista[Iterador]
-    else:
-        print(Res)
-        MyLista.clear()
-        Menu()
+    print(Res)
+    MyLista.clear()
+    Menu()
 
 def SumaFracciones():
     Iterador = 1
@@ -61,6 +56,9 @@ def SumaFracciones():
         ResultadoD *= Denominadores[Iterador]
         ResultadoN = Primero + Segundo
     print(ResultadoN, "/", ResultadoD)
+    Numeradores.clear()
+    Denominadores.clear()
+    Menu()
 
 def RestaFracciones():
     Iterador = 1
@@ -74,8 +72,10 @@ def RestaFracciones():
         Segundo = ResultadoD * Numeradores[Iterador]
         ResultadoD *= Denominadores[Iterador]
         ResultadoN = Primero - Segundo
-    else:
-        print(ResultadoN, "/", ResultadoD)
+    print(ResultadoN, "/", ResultadoD)
+    Numeradores.clear()
+    Denominadores.clear()
+    Menu()
 
 def MultiplicacionFracciones():
     Iterador = 1
@@ -85,10 +85,10 @@ def MultiplicacionFracciones():
         Iterador += 1
         ResultadoN *= Numeradores[Iterador]
         ResultadoD *= Denominadores[Iterador]
-    else:
-        print(Numeradores)
-        print(Denominadores)
-        print(ResultadoN, "/", ResultadoD)
+    print(ResultadoN, "/", ResultadoD)
+    Numeradores.clear()
+    Denominadores.clear()
+    Menu()
 
 def DivisionFracciones():
     Iterador = 1
@@ -98,8 +98,56 @@ def DivisionFracciones():
         Iterador += 1
         ResultadoN *= Denominadores[Iterador]
         ResultadoD *= Numeradores[Iterador]
-    else:
-        print(ResultadoN, "/", ResultadoD)
+    print(ResultadoN, "/", ResultadoD)
+    Numeradores.clear()
+    Denominadores.clear()
+    Menu()
+
+def ConversionBin(dividendo):
+    Cociente, resto = divmod(dividendo, 2)
+    Convertido.insert(0, resto)
+    while Cociente != 0:
+        Cociente, resto = divmod(Cociente, 2)
+        Convertido.insert(0, resto)
+    print(Convertido)
+    Convertido.clear()
+    Menu()
+
+def ConversionHex(dividendo):
+    Cociente, resto = divmod(dividendo, 16)
+    print(resto)
+    while Cociente != 0:
+        if resto > 9:
+            match resto:
+                case 10:
+                    Convertido.insert(0, "A")
+                case 11:
+                    Convertido.insert(0, "B")
+                case 12:
+                    Convertido.insert(0, "C")
+                case 13:
+                    Convertido.insert(0, "D")
+                case 14:
+                    Convertido.insert(0, "E")
+                case 15:
+                    Convertido.insert(0, "F")
+        else:
+            Convertido.insert(0, resto)
+        Cociente, resto = divmod(Cociente, 16)
+    Convertido.insert(0, resto)
+    print(Convertido)
+    Convertido.clear()
+    Menu()
+
+def ConversionOct(dividendo):
+    Cociente, resto = divmod(dividendo, 8)
+    Convertido.insert(0, resto)
+    while Cociente != 0:
+        Cociente, resto = divmod(Cociente, 8)
+        Convertido.insert(0, resto)
+    print(Convertido)
+    Convertido.clear()
+    Menu()
 
 def OperacionesEnteros():
     print("Escriba los numeros de Uno en Uno, cuando haya termina escriba Suma, Resta, Multiplicacion o Division para realizar la operacion indicada")
@@ -111,18 +159,20 @@ def OperacionesEnteros():
         else:
             OperacionesEnteros()
         OpcionIngresada = input()
-    else:
-        if OpcionIngresada == "Suma":
+    match OpcionIngresada:
+        case "Suma":
             Suma()
-        if OpcionIngresada == "Resta":
+        case "Resta":
             Resta()
-        if OpcionIngresada == "Multiplicacion":
+        case "Multiplicacion":
             Multiplicacion()
-        if OpcionIngresada == "Division":
+        case "Division":
             Division()
+        case _:
+            OperacionesEnteros()
 
 def OperacionesFracciones():
-    print("Ingrese el Numerador y despues el denominador de la fraccion, repita este proceso hasta que haya ingresado todas las fracciones que desea")
+    print("Ingrese el Numerador y despues el denominador de la fraccion, repita este proceso hasta que haya ingresado todas las fracciones que desea. Despues escriba Suma, Resta, Multiplicacion o Divison para realizar la operacion")
     primero = True
     OpcionFraccion = input()
     while OpcionFraccion != "Suma" and OpcionFraccion != "Resta" and OpcionFraccion != "Multiplicacion" and OpcionFraccion != "Division":
@@ -135,29 +185,51 @@ def OperacionesFracciones():
             Denominadores.append(IntFraccion)
             primero = True
         OpcionFraccion = input()
-    else:#error actual esta agregando ambos numeros a la misma lista sin importar si primero es true o false FUE CORREGIDO
-        if OpcionFraccion == "Suma":
-            SumaFracciones()
-        if OpcionFraccion == "Resta":
+    match OpcionFraccion:
+        case "Suma":
+            SumaFracciones
+        case "Resta":
             RestaFracciones()
-        if OpcionFraccion == "Multiplicacion":
+        case "Multiplicacion":
             MultiplicacionFracciones()
-        if OpcionFraccion == "Division":
+        case "Division":
             DivisionFracciones()
+        case _:
+            OperacionesFracciones()
+
 def Conversiones():
-    print("")
+    print("Ingrese un Numero de hasta 4 digitos positivo")
+    NumAConvertir = input()
+    if NumAConvertir.isdigit() == True and len(NumAConvertir) <= 4:
+        NumInt = int(NumAConvertir)
+        print("Escriba bin para convertir a binario, hex para convertir a hexadecimal y oct para convertir a octal")
+        Ingreso = input()
+        match Ingreso:
+            case "bin":
+                ConversionBin(NumInt)
+            case "hex":
+                ConversionHex(NumInt)
+            case "oct":
+                ConversionOct(NumInt)
+            case _:
+                Conversiones()
+    else:
+        Conversiones()
 
 def Menu():
     print("Escriba 1 para hacer operaciones con enteros, 2 para hacer operaciones con fracciones, 3 para hacer conversion de un numero a otros formatos numericos, 4 para salir del programa")
     NumIngresado = input()
-    if NumIngresado == "1":
-        OperacionesEnteros()
-    if NumIngresado == "2":
-        OperacionesFracciones()
-    if NumIngresado == "3":
-        Conversiones()
-    if NumIngresado == "4":
-        exit
+    match NumIngresado:
+        case "1":
+            OperacionesEnteros()
+        case "2":
+            OperacionesFracciones()
+        case "3":
+            Conversiones()
+        case "4":
+            exit()
+        case _:
+            Menu()
 
 def Inicio():
     print("Presione On para prender la Calculadora")
