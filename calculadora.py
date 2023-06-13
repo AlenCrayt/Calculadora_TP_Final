@@ -187,7 +187,7 @@ def OperacionesFracciones():
         OpcionFraccion = input()
     match OpcionFraccion:
         case "Suma":
-            SumaFracciones
+            SumaFracciones()
         case "Resta":
             RestaFracciones()
         case "Multiplicacion":
